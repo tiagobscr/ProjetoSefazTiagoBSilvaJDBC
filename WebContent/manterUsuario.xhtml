@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form id="Cadastro">
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
+		<p:panelGrid id="grid1" style="width: 50%">
+			<p:row>
+				<p:column style="width:40px">
+					<h:outputLabel value="Nome: " />
+				</p:column>
+				<p:column colspan="2" style="width:400px">
+					<p:inputText id="nome" value="#{UsuarioBean.usuario.nome}"
+						required="true" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column style="width:40px">
+					<h:outputLabel value="Email: " />
+				</p:column>
+				<p:column colspan="2" style="width:400px">
+					<p:inputText id="email" value="#{UsuarioBean.usuario.email}"
+						required="true" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column style="width:40px">
+					<h:outputLabel value="Senha: " />
+				</p:column>
+				<p:column colspan="2" style="width:400px">
+					<p:password for="senha" id="senha"
+						value="#{UsuarioBean.usuario.senha}" required="true"
+						match="confirmarsenha" />
+					<p:message for="senha" display="messages"
+						detail="As senhas devem ser iguais" />
+
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column style="width:40px">
+					<h:outputLabel value="Confirmar Senha: " />
+				</p:column>
+				<p:column colspan="2" style="width:400px">
+					<p:password for="confirmarsenha" id="confirmarsenha"
+						value="#{UsuarioBean.confirmaSenha}" required="true" />
+
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column colspan="4">
+					<p:panel id="panel2" header="Telefones">
+						<p:panelGrid columns="7">
+							<h:outputLabel value="DDD: " />
+							<p:inputText size="3" value="#{UsuarioBean.telefone.ddd}" />
+							<h:outputLabel value="Numero: " />
+							<p:inputMask id="numero" size="10" mask="#{UsuarioBean.foneMask}"
+								value="#{UsuarioBean.telefone.numero}" />
+							<h:outputLabel value="Tipo: " />
+							<p:selectOneMenu style="width:125px"
+								value="#{UsuarioBean.telefone.tipo}" update="numero">
+								<f:selectItem itemLabel="Celular" itemValue="CELULAR" />
+								<f:selectItem itemLabel="Fixo" itemValue="FIXO" />
+								<p:ajax listener="#{UsuarioBean.setarMask}" update="numero" />
+							</p:selectOneMenu>
+							<p:commandButton value="Adicionar" update="telefones"
+								actionListener="#{UsuarioBean.adicionarTelefone}" />
+						</p:panelGrid>
+						<p:dataTable id="telefones" var="telefone"
+							value="#{UsuarioBean.usuario.telefones}">
+							<p:column headerText="DDD">
+								<h:outputText value="#{telefone.ddd}" />
+							</p:column>
+							<p:column headerText="Numero">
+								<h:outputText value="#{telefone.numero}" />
+							</p:column>
+							<p:column headerText="Tipo">
+								<h:outputText value="#{telefone.tipo}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="2">
+					<p:commandButton value="Salvar" update="@form"
+						actionListener="#{UsuarioBean.salvar}" resetValues="panel2,grid1" />
+				</p:column>
+				<p:column>
+					<p:commandButton value="Limpar" update="@form"
+						actionListener="#{UsuarioBean.abrirManterUsuario}"
+						resetValues="panel2,grid1" immediate="true" />
+					<p:commandButton value="Cancelar" style="margin-right:40px;"
+						actionListener="#{UsuarioBean.abrirLogin}" immediate="true" />
+
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</h:form>
+	<footer> Projeto Sefaz - Tiago Batista </footer>
+</h:body>
+</html>

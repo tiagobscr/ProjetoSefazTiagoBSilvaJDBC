@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form>
+
+
+		
+			<p:panelGrid columns="2">
+				<h:outputText value="Usuario:" />
+				<h:inputText value="#{UsuarioBean.usuario.nome}" />
+				<h:outputText value="Telefone:" />
+				<h:inputText value="#{UsuarioBean.telefone.numero}" />
+				<h:outputText value="Email:" />
+				<h:inputText value="#{UsuarioBean.usuario.email}" />
+				<h:outputText value="Email:" />
+				<h:inputText value="#{UsuarioBean.usuario.email}" />
+
+				<p:commandButton value="Pesquisar"
+					actionListener="#{UsuarioBean.pesquisar}" />
+			</p:panelGrid>
+			
+
+			<p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+
+			<style type="text/css">
+.value {
+	font-weight: bold;
+}
+
+.ui-datatable {
+	margin-bottom: 25px
+}
+
+.ui-datatable .ui-datatable-footer {
+	text-align: left;
+}
+
+.ui-datalist ul {
+	padding: 0 0 0 10px;
+	margin: 5px 0;
+}
+
+.ui-datatable .ui-button-icon-only .ui-button-text {
+	padding: 0;
+	line-height: 1.2;
+}
+</style>
+
+			<p:dataTable id="basicDT" var="usuario"
+				value="#{UsuarioBean.usuarios}">
+				<f:facet name="header">
+            Usuarios
+        </f:facet>
+				<p:column headerText="Nome">
+					<h:outputText value="#{UsuarioBean.usuario.nome}" />
+				</p:column>
+				<p:column headerText="Email">
+					<h:outputText value="#{UsuarioBean.usuario.email}" />
+				</p:column>
+				<p:column headerText="DDD">
+					<h:outputText value="#{UsuarioBean.telefone.ddd}" />
+				</p:column>
+				<p:column headerText="Fone" style="width:1;text-align: center">>
+				
+					<h:outputText value="#{UsuarioBean.telefone.numero}" />
+					<p:commandButton 
+						oncomplete="PF('carDialog').show()" icon="pi pi-search"
+						title="View">
+						<f:setPropertyActionListener value="#{UsuarioBean.usuario}"
+							target="#{UsuarioBean.usuarios.selectedUsuario}" />
+					</p:commandButton>
+				</p:column>
+				
+				
+			</p:dataTable>
+
+
+			
+		
+	</h:form>
+</h:body>
+</html>

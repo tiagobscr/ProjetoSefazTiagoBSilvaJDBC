@@ -1,0 +1,183 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
+		<p:panelGrid style="width: 50%">
+			<p:row>
+				<p:column style="width:40px">
+					<h:outputLabel value="Nome: " />
+				</p:column>
+				<p:column colspan="2" style="width:400px">
+					<p:inputText value="#{UsuarioBean.nomePesquisa}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column style="width:40px">
+					<h:outputLabel value="Email: " />
+				</p:column>
+				<p:column colspan="2" style="width:400px">
+					<p:inputText value="#{UsuarioBean.emailPesquisa}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column style="width:100px">
+					<h:outputLabel value="Buscar: " />
+				</p:column>
+				<p:column colspan="2" style="width:400px">
+					<p:commandLink value=" Por nome " update="@form,painel"
+						style="margin-right:10px;color:blue;"
+						actionListener="#{UsuarioBean.pesquisarNome}" />
+					<p:commandLink value=" Por email " update="@form,painel"
+						style="margin-right:10px;color:blue;"
+						actionListener="#{UsuarioBean.pesquisarEmail}" />
+				</p:column>
+			</p:row>
+
+			<p:row>
+				<p:column headerText="Pesquisar" colspan="2">
+					<h:outputLabel value="Menu: " />
+
+				</p:column>
+				<p:column>
+					<p:commandLink value="Pesquisar" update="@form"
+						style="margin-right:10px;color:green;"
+						actionListener="#{UsuarioBean.pesquisar}" />
+					<p:commandLink value="Limpar" updta="@form"
+						style="margin-right:15px;color:green;"
+						actionListener="#{UsuarioBean.abrirPesquisarUsuario}" />
+					<p:commandLink value="Logoff" updta="@form"
+						style="margin-right:10px;color:green;"
+						actionListener="#{UsuarioBean.abrirLogin}" />
+				</p:column>
+				<p:column>
+					<p:commandLink value="Cadastrar Usuário" updta="@form"
+						style="margin-right:2px;color:green;"
+						actionListener="#{UsuarioBean.abrirManterUsuario}" />
+				</p:column>
+
+			</p:row>
+		</p:panelGrid>
+
+		<p:panel id="painel"
+			header="Lista de Usuários   encontrados: #{UsuarioBean.quantPesquisada}"
+			style="margin-bottom:10px; width: 50%">
+			<p:dataTable var="usuario" value="#{UsuarioBean.usuarios}">
+				<p:column headerText="Nome">
+					<h:outputText value="#{usuario.nome}" />
+				</p:column>
+				<p:column headerText="Email">
+					<h:outputText value="#{usuario.email}" />
+				</p:column>
+
+				<p:column headerText="Editar" width="10%">
+					<p:commandButton update="@form"
+						oncomplete="PF('usuarioDialog3').show()" icon="fa fa-fw fa-edit"
+						title="Editar">
+						<f:setPropertyActionListener value="#{usuario}"
+							target="#{UsuarioBean.usuario}" />
+					</p:commandButton>
+				</p:column>
+
+
+				<p:column headerText="Excluir" width="10%">
+					<p:commandButton update="@form"
+						oncomplete="PF('usuarioDialog2').show()" icon="fa fa-fw fa-remove"
+						title="Excluir">
+						<f:setPropertyActionListener value="#{usuario}"
+							target="#{UsuarioBean.usuario}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+
+		<p:dialog header="Excluir usuario?" widgetVar="usuarioDialog2"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="usuarioDetail2" style="text-align:center;">
+				<p:panelGrid columns="2" columnClasses="label,value">
+					<h:outputText value="Nome" />
+					<h:outputText value="#{UsuarioBean.usuario.nome}" />
+					<h:outputText value="Email" />
+					<h:outputText value="#{UsuarioBean.usuario.email}" />
+					<h:outputText value="Telefones:" />
+					<h:outputText value="#{UsuarioBean.usuario.telefones}" />
+					<p:commandButton value="Confirma" updta="@form"
+						onclick="dialog.hide()" action="#{UsuarioBean.remover}">
+						<f:setPropertyActionListener target="#{UsuarioBean.usuario}"
+							value="#{UsuarioBean.usuario}" />
+					</p:commandButton>
+
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:dialog>
+
+		<p:dialog header="Editar usuario" widgetVar="usuarioDialog3"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="usuarioDetail3" style="text-align:center;">
+				<p:panelGrid columns="2" columnClasses="label,value">
+					<h:outputText value="Nome" />
+					<h:inputText value="#{UsuarioBean.usuario.nome}" />
+					<h:outputText value="Email" />
+					<h:outputText value="#{UsuarioBean.usuario.email}" />
+					<p:commandButton value="Salvar" updta="@form"
+						onclick="dialog.hide()" action="#{UsuarioBean.editar}">
+						<f:setPropertyActionListener target="#{UsuarioBean.usuario}"
+							value="#{UsuarioBean.usuario}" />
+					</p:commandButton>
+
+				</p:panelGrid>
+			</p:outputPanel>
+			<p:column colspan="4">
+				<p:panel id="panel2" header="Telefones">
+					<p:messages id="message2" showDetail="true" autoUpdate="true"
+						closable="true" globalOnly="false" />
+					<p:panelGrid columns="7">
+						<h:outputLabel value="DDD: " />
+						<p:inputText size="3" value="#{UsuarioBean.telefone.ddd}" />
+						<h:outputLabel value="Numero: " />
+						<p:inputMask id="numero" size="10" mask="#{UsuarioBean.foneMask}"
+							value="#{UsuarioBean.telefone.numero}" />
+						<h:outputLabel value="Tipo: " />
+						<p:selectOneMenu style="width:125px"
+							value="#{UsuarioBean.telefone.tipo}">
+							<f:selectItem itemLabel="Celular" itemValue="CELULAR" />
+							<f:selectItem itemLabel="Fixo" itemValue="FIXO" />
+							<p:ajax listener="#{UsuarioBean.setarMask}" update="numero" />
+						</p:selectOneMenu>
+						<p:commandButton value="Adicionar" update="telefones,message2"
+							actionListener="#{UsuarioBean.adicionarTelefone}" />
+					</p:panelGrid>
+					<p:dataTable id="telefones" var="telefone"
+						value="#{UsuarioBean.usuario.telefones}">
+						<p:column headerText="DDD">
+							<h:outputText value="#{telefone.ddd}" />
+						</p:column>
+						<p:column headerText="Numero">
+							<h:outputText value="#{telefone.numero}" />
+						</p:column>
+						<p:column headerText="Tipo">
+							<h:outputText value="#{telefone.tipo}" />
+						</p:column>
+						<p:column headerText="Remover" width="10%">
+							<p:commandButton icon="pi pi-times" update="telefones"
+								action="#{UsuarioBean.removerTelefone}">
+								<f:setPropertyActionListener target="#{UsuarioBean.telefone}"
+									value="#{telefone}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+			</p:column>
+		</p:dialog>
+	</h:form>
+	<footer> Projeto Sefaz - Tiago Batista </footer>
+</h:body>
+</html>

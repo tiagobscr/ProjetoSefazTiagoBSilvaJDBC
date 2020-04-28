@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form>
+
+		<p:dialog header="Esqueci minha senha" widgetVar="dlg3" modal="true"
+			closable="false" visible="true" showEffect="fade" hideEffect="fade"
+			resizable="false" footer="Projeto Sefaz - Tiago Batista">
+			<p:outputPanel id="loginDetail3" style="text-align:center;">
+				<p:messages id="message2" showDetail="true" autoUpdate="true"
+					closable="true" globalOnly="false" />
+				<p:panelGrid columns="2" columnClasses="label,value">
+					<h:outputText value="Nome" id="nome" />
+					<h:inputText value="#{LoginBean.usuario.nome}" required="true" />
+					<h:outputText value="Email" id="email" />
+					<h:inputText value="#{LoginBean.usuario.email}" />
+					
+					<h:outputLabel value="Senha: " />
+					<p:password for="senha" id="senha"
+						value="#{LoginBean.usuario.senha}" match="confirmarsenha"
+						required="true" />
+
+					<h:outputLabel value="Confirmar Senha:" />
+					<p:password for="confirmarsenha" id="confirmarsenha"
+						value="#{LoginBean.confirmaSenha}" required="true" />
+					<p:commandButton value="Criar nova senha" update="@form,message2"
+						action="#{LoginBean.novaSenha}">
+						<f:setPropertyActionListener target="#{LoginBean.usuario}"
+							value="#{LoginBean.usuario}" />
+					</p:commandButton>
+					<p:commandButton value="Cancelar" action="#{LoginBean.abrirLogin}"
+						immediate="true">
+
+					</p:commandButton>
+
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:dialog>
+
+	</h:form>
+</h:body>
+</html>

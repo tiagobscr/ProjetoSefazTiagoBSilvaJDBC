@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form>
+
+
+		<p:dialog header="Projeto Sefaz" widgetVar="dlg2" modal="true"
+			height="150" closable="false" visible="true"
+			footer="Gerenciamento de usuários">
+			<p:panelGrid columns="2">
+				<h:outputText value="Usuario:" />
+				<h:inputText value="#{LoginBean.usuarioTXT}" />
+				<h:outputText value="senha:" />
+				<h:inputSecret value="#{LoginBean.senhaTXT}" />
+				<p:commandLink value="Entrar" actionListener="#{LoginBean.entrar}"
+					update="@form" style="color: blue" />
+				<p:commandLink value="Novo usuário"
+					actionListener="#{LoginBean.abrirManterUsuario}"
+					update="@form" style="color: green" />
+				<p:commandLink value="Esqueci minha senha" style="color: red"
+					actionListener="#{LoginBean.abrirNovaSenha}"
+					 update="@form" />
+				<h:outputLabel id="message1" value="#{LoginBean.mensagem}"
+					style="color: red" update="loginDetail3" />
+
+			</p:panelGrid>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

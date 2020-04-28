@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="Sefaz">
+		<properties>
+			<property name="javax.persistence.jdbc.driver"
+				value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:sqlserver://localhost:1433;databaseName=db_jpa" />
+			<property name="javax.persistence.jdbc.user" value="tiago" />
+			<property name="javax.persistence.jdbc.password"
+				value="4737" />
+
+			<property
+				name="javax.persistence.schema-generation.database.action"
+				value="update" />
+			<property
+				name="javax.persistence.schema-generation.create-source"
+				value="metadata" />
+			<property name="javax.persistence.sql-load-script-source"
+				value="META-INF/dados.sql" />
+
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>
