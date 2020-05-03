@@ -25,8 +25,8 @@ public class FactoryTest {
 			System.out.println(usuario.getTelefones());
 
 		}
-
-	    usuarios = UsuarioDaoImpl.getInstance().listarNome("Zenaide");
+        
+	    usuarios = UsuarioDaoImpl.getInstance().listarNome("Tiago");
 		System.out.println(usuarios);
 
 		for (Usuario usuario : usuarios) {
@@ -45,6 +45,7 @@ public class FactoryTest {
 		//List<Telefone> novosTelefones = new ArrayList<Telefone>();
 		usuario.getTelefones().remove(1);
 		usuario.getTelefones().add(telefone);
+		
 		//usuarioDao.alterar(usuario);
 		
 

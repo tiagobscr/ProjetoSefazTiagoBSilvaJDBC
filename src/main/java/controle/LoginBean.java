@@ -10,7 +10,6 @@ import javax.persistence.EntityManagerFactory;
 import dao.UsuarioDaoImpl;
 import entidade.Usuario;
 
-
 /**
  * 
  * @author Tiago Batista
@@ -51,12 +50,12 @@ public class LoginBean {
 		if (this.usuarioTXT.equals("admin") && this.senhaTXT.equals("admin")) {
 			FacesContext.getCurrentInstance().getExternalContext().redirect(PESQUISAR);
 		} else {
-			//this.usuario=this.usuarioDao.pesquisar(this.usuarioTXT);
-			if (this.usuarioDao.pesquisar(this.usuarioTXT).getEmail() != null) {
-				if (this.usuarioDao.pesquisar(this.usuarioTXT).getSenha().equals(this.senhaTXT)) {
-					this.usuarioLogado = usuarioDao.pesquisar(this.usuarioTXT);
+			this.usuario = this.usuarioDao.pesquisar(this.usuarioTXT);
+			if (this.usuario.getEmail() != null) {
+				if (this.usuario.getSenha().equals(this.senhaTXT)) {
+					// this.usuarioLogado = usuarioDao.pesquisar(this.usuarioTXT);
 
-					this.usuario = this.usuarioLogado;
+					this.usuarioLogado = this.usuario;
 
 					FacesContext.getCurrentInstance().getExternalContext().redirect(PESQUISAR);
 				} else {

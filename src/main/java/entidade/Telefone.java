@@ -7,18 +7,17 @@ public class Telefone {
 	private String numero;
 	private String tipo;
 	private Usuario usuario;
+
 	
-	
+			
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ddd;
-		result = prime * result + id;
 		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
 		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
-		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
 	}
 
@@ -33,8 +32,6 @@ public class Telefone {
 		Telefone other = (Telefone) obj;
 		if (ddd != other.ddd)
 			return false;
-		if (id != other.id)
-			return false;
 		if (numero == null) {
 			if (other.numero != null)
 				return false;
@@ -44,11 +41,6 @@ public class Telefone {
 			if (other.tipo != null)
 				return false;
 		} else if (!tipo.equals(other.tipo))
-			return false;
-		if (usuario == null) {
-			if (other.usuario != null)
-				return false;
-		} else if (!usuario.equals(other.usuario))
 			return false;
 		return true;
 	}
